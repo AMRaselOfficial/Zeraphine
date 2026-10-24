@@ -1,0 +1,799 @@
+#!/usr/bin/env python3
+"""Build /home/hatch/workspace/zeraphine/content.json from the canonical brief."""
+import json
+
+content = {
+    "meta": {
+        "caseId": "CASE001",
+        "title": "The House at Blackwood Lane",
+        "version": "1.0.0",
+        "startScene": "CASE001-S01",
+    },
+    "scenes": {},
+    "evidence": {},
+    "endings": {},
+    "phone": {"threads": []},
+    "database": [],
+    "theories": [],
+    "systemNotes": [],
+}
+
+E = content["evidence"]
+E["EVIDENCE-001"] = {
+    "id": "EVIDENCE-001", "name": "Crime Scene Photographs", "type": "Photo",
+    "icon": "assets/scene-study.jpg",
+    "description": "Wide shots of the house and study, taken by Officer Reyes before the rain worsened.",
+    "sourceScene": "CASE001-S01", "confidence": "High",
+    "detail": "Reyes photographed the exterior, the front hall, and the study before anything was moved. "
+              "The study shots show the body where it was found, the pistol on the desk blotter, and the "
+              "open drawers \u2014 a baseline the rest of the forensics will be measured against.",
+}
+E["EVIDENCE-002"] = {
+    "id": "EVIDENCE-002", "name": "Muddy Footprints", "type": "Physical",
+    "icon": "assets/scene-exterior.jpg",
+    "description": "Men\u2019s size-11 prints in the mud along the back walk, heading toward the house \u2014 then none returning by the front.",
+    "sourceScene": "CASE001-S01A", "confidence": "Medium",
+    "detail": "The prints enter via the side gate and stop at the rear of the house. No matching set leaves "
+              "by the front walk. Whoever came in through the mud did not walk out the way visitors do.",
+}
+E["EVIDENCE-003"] = {
+    "id": "EVIDENCE-003", "name": "Family Photograph", "type": "Photo",
+    "icon": "assets/ev-familyphoto.jpg",
+    "description": "The Whitmores three years ago, smiling on this same porch. Daniel\u2019s smile doesn\u2019t reach his eyes.",
+    "sourceScene": "CASE001-S01B", "confidence": "Low",
+    "detail": "A framed porch portrait, three summers old: Daniel, Eleanor, and Claire. A happy family, or a "
+              "family performing happiness. Daniel\u2019s expression is the one men wear when the camera is "
+              "the least of their problems.",
+}
+E["EVIDENCE-004"] = {
+    "id": "EVIDENCE-004", "name": "Body Examination Notes", "type": "Document",
+    "icon": "assets/ev-blood.jpg",
+    "description": "Single gunshot wound to the chest. Lividity and blood pooling inconsistent with the body\u2019s position \u2014 it was moved ~30 minutes after death.",
+    "sourceScene": "CASE001-S02A", "confidence": "High",
+    "detail": "One wound, center chest, fatal within minutes. But lividity has settled in the back and "
+              "shoulders in a pattern that contradicts the position the body was found in. The body was "
+              "moved roughly half an hour after death \u2014 dragged a short distance and repositioned.",
+}
+E["EVIDENCE-005"] = {
+    "id": "EVIDENCE-005", "name": "Wiped Firearm", "type": "Physical",
+    "icon": "assets/ev-firearm.jpg",
+    "description": "Daniel\u2019s registered pistol. Forensically wiped clean \u2014 not a single print, not even Daniel\u2019s or Eleanor\u2019s. Someone cleaned it after the shooting.",
+    "sourceScene": "CASE001-S02B", "confidence": "High",
+    "detail": "Serial matches Daniel Whitmore\u2019s registration. The weapon is forensically sterile: no prints, "
+              "no partials, no DNA \u2014 not even the owner\u2019s or the woman who says she fired it. A panicked "
+              "shooter does not stop to polish a gun. Someone thinking clearly did this, after the fact.",
+}
+E["EVIDENCE-006"] = {
+    "id": "EVIDENCE-006", "name": "Daniel\u2019s Laptop", "type": "Digital",
+    "icon": "assets/ev-desk.jpg",
+    "description": "Encrypted. File index shows large deletions made at 9:14 PM \u2014 after Daniel died. Someone used it after the murder.",
+    "sourceScene": "CASE001-S02C", "confidence": "High",
+    "detail": "The drive is encrypted, but the file index survived: a mass deletion at 9:14 PM, nearly half an "
+              "hour after Daniel\u2019s death. Someone sat at this desk, after the shooting, and destroyed data "
+              "in a hurry. The laptop itself was left behind \u2014 the thief ran out of time, or nerve.",
+}
+E["EVIDENCE-007"] = {
+    "id": "EVIDENCE-007", "name": "Daniel\u2019s Note", "type": "Document",
+    "icon": "assets/ev-desk.jpg",
+    "description": "Handwritten, in the desk drawer: \u201cIf anything happens \u2014 ask M.V. Everything is in the second drawer. \u2014 D.\u201d",
+    "sourceScene": "CASE001-S02C", "confidence": "Medium",
+    "detail": "A hurried hand on foundation letterhead. Daniel Whitmore was afraid of something \u2014 or someone \u2014 "
+              "and left instructions pointing at \u201cM.V.\u201d The second drawer he mentions sticks; its side "
+              "panel gives a quarter inch under pressure.",
+}
+E["EVIDENCE-008"] = {
+    "id": "EVIDENCE-008", "name": "Orpheus Ledger Page", "type": "Document",
+    "icon": "assets/ev-desk.jpg",
+    "description": "Hidden compartment in the desk\u2019s second drawer. A page of coded payments: \u201cORPHEUS \u2014 Q3 disbursements.\u201d Proof of the network.",
+    "sourceScene": "CASE001-S02C", "confidence": "High",
+    "detail": "A single folded page from a hidden compartment: columns of coded payments headed ORPHEUS \u2014 "
+              "Q3 disbursements. Seven figures moving through shell entities tied to the Whitmore charitable "
+              "foundation. This is not charity accounting. This is a private intelligence brokerage, and "
+              "Daniel Whitmore was running it.",
+}
+E["EVIDENCE-009"] = {
+    "id": "EVIDENCE-009", "name": "Muddy Window Smear", "type": "Physical",
+    "icon": "assets/ev-window.jpg",
+    "description": "Mud smeared on the study window latch and sill \u2014 someone climbed out recently. Mud matches the back-walk soil.",
+    "sourceScene": "CASE001-S02D", "confidence": "High",
+    "detail": "Mud on the latch, the sill, and a slide-smear down the outer frame: someone climbed out of the "
+              "study window in the rain, recently. Soil composition matches the back walk \u2014 the same mud "
+              "as the footprints. You only leave through a window when you don\u2019t want to be seen leaving.",
+}
+E["EVIDENCE-010"] = {
+    "id": "EVIDENCE-010", "name": "Blood Pattern Analysis", "type": "Document",
+    "icon": "assets/ev-blood.jpg",
+    "description": "Cast-off and drag marks: the body was pulled about two feet across the rug after the bleeding slowed. Staged or searched post-mortem.",
+    "sourceScene": "CASE001-S02F", "confidence": "High",
+    "detail": "Cast-off arcs and drag marks run two feet across the rug. The body was pulled \u2014 not carried \u2014 "
+              "after the bleeding slowed, roughly thirty minutes post-mortem. The jacket pockets hang turned "
+              "half inside-out: the body was searched, or the scene was staged to look searched.",
+}
+E["EVIDENCE-011"] = {
+    "id": "EVIDENCE-011", "name": "Unknown Texts", "type": "Digital",
+    "icon": "assets/ev-phone.jpg",
+    "description": "Threatening texts on Daniel\u2019s phone from an unknown number, received over the past week: \u201cYou don\u2019t get to walk away.\u201d",
+    "sourceScene": "CASE001-S02E", "confidence": "Medium",
+    "detail": "A week of escalating messages from a blocked number: \u201cYou don\u2019t get to walk away.\u201d "
+              "\u201cWe made you, Daniel.\u201d \u201cThursday. Decide.\u201d Daniel Whitmore was being leaned on by "
+              "people he feared \u2014 and the pressure was building toward this week.",
+}
+E["EVIDENCE-012"] = {
+    "id": "EVIDENCE-012", "name": "9:02 PM Call Log", "type": "Digital",
+    "icon": "assets/ev-phone.jpg",
+    "description": "Eleanor called Marcus Vale at 9:02 PM \u2014 29 minutes before she called 911.",
+    "sourceScene": "CASE001-S02E", "confidence": "High",
+    "detail": "The call log is unambiguous: 9:02 PM, Eleanor Whitmore called Marcus Vale \u2014 forty-four minutes "
+              "after the shooting, twenty-nine minutes before she dialed 911. She never mentioned this call to "
+              "Officer Reyes. Whatever was said in those minutes, it happened before the police existed in her night.",
+}
+E["EVIDENCE-013"] = {
+    "id": "EVIDENCE-013", "name": "Claire\u2019s Photograph", "type": "Photo",
+    "icon": "assets/scene-exterior.jpg",
+    "description": "Time-stamped 9:15 PM: a black sedan leaving Blackwood Lane. Registered to Marcus Vale. (Shared by Claire.)",
+    "sourceScene": "CASE001-S03C", "confidence": "High",
+    "detail": "Taken from Claire Whitmore\u2019s bedroom window at 9:15 PM: a black sedan pulling away down "
+              "Blackwood Lane, plates readable. Registered to Vale Holdings \u2014 Marcus Vale\u2019s company. "
+              "Marcus Vale was here tonight, whatever his alibi says.",
+}
+E["EVIDENCE-014"] = {
+    "id": "EVIDENCE-014", "name": "Dr. Cole\u2019s Statement", "type": "Document",
+    "icon": "assets/portrait-cole.jpg",
+    "description": "Cole confirms Daniel feared \u201chis associates\u201d and believed they would kill him if he tried to leave.",
+    "sourceScene": "CASE001-S03D", "confidence": "Medium",
+    "detail": "Dr. Adrian Cole, the family physician, states that Daniel Whitmore told him he feared \u201chis "
+              "associates\u201d and believed they would kill him if he tried to walk away from their arrangement. "
+              "Corroborates the threatening texts: Daniel was afraid of the people he worked with.",
+}
+
+# ---------------------------------------------------------------- scenes
+S = content["scenes"]
+
+S["CASE001-S01"] = {
+    "id": "CASE001-S01", "title": "Arrival", "storyTime": "9:47 PM",
+    "image": "assets/scene-arrival.jpg",
+    "blocks": [
+        {"t": "n", "text": "The rain hasn\u2019t stopped since eight, and Blackwood Lane wears it like a held breath. Number 17 glows against the dark \u2014 every window lit, the porch light buzzing, a black-and-white parked crooked at the curb with its light bar still turning, painting the wet hedges red and blue."},
+        {"t": "n", "text": "You duck under the crime-scene tape and climb the steps. A uniformed officer waits under the porch overhang, collar up, notebook already damp at the edges. She extends a hand."},
+        {"t": "d", "who": "Officer Reyes", "text": "Detective. Dana Reyes \u2014 first on scene. The victim\u2019s Daniel Whitmore, fifty-two, in the study. His wife\u2019s inside. She says she shot him \u2014 says it was self-defense, an argument that went wrong."},
+        {"t": "d", "who": "Officer Reyes", "text": "I took wide shots of the house and the study before the rain got worse. They\u2019re yours. The wife\u2019s in the living room, the daughter\u2019s upstairs. Nobody\u2019s touched the study since I taped it."},
+        {"t": "n", "text": "Through the front door you can see the living room \u2014 a woman sitting very still on the edge of a sofa, hands folded, not crying. Beyond, a hallway leads toward the study. The whole house smells of rain and woodsmoke, with something metallic underneath it."},
+        {"t": "sys", "text": "Case opened: The House at Blackwood Lane. Work the scene before you begin interviews."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s01"},
+        {"a": "evidence", "id": "EVIDENCE-001"},
+    ],
+    "choices": [
+        {"id": "s01-grounds", "label": "Examine the grounds", "sub": "Walk the perimeter before going in.", "go": "CASE001-S01A"},
+        {"id": "s01-living", "label": "Step into the living room", "sub": "Eleanor Whitmore is waiting there.", "go": "CASE001-S01B"},
+        {"id": "s01-study", "label": "Go to the study", "sub": "Where Daniel Whitmore died.", "go": "CASE001-S02"},
+    ],
+}
+
+S["CASE001-S01A"] = {
+    "id": "CASE001-S01A", "title": "The Grounds", "storyTime": "9:52 PM",
+    "image": "assets/scene-exterior.jpg",
+    "blocks": [
+        {"t": "n", "text": "The back walk is mud \u2014 the rain has turned the garden into something that keeps score. Your flashlight finds them halfway to the rear door: men\u2019s prints, size eleven or so, pressed deep, heading toward the house."},
+        {"t": "n", "text": "You follow them back the other way. They come from the side gate, not the street. And here\u2019s the thing worth writing down: they don\u2019t go back. Whoever walked in through the mud never walked out the way he came \u2014 at least, not by the front."},
+        {"t": "n", "text": "The rear of the house is dark. A ground-floor window \u2014 the study, by the layout \u2014 shows a smear at latch height, though you\u2019ll want to look closer at that from the inside."},
+        {"t": "d", "who": "Officer Reyes", "text": "Find something, Detective?"},
+        {"t": "n", "text": "You don\u2019t answer yet. You photograph the prints and mark their line with little flags. The rain is already softening the edges, washing the night\u2019s arithmetic away."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s01a"},
+        {"a": "evidence", "id": "EVIDENCE-002"},
+    ],
+    "choices": [
+        {"id": "s01a-back", "label": "Head back inside", "sub": "The rain is washing the prints away.", "go": "CASE001-S01"},
+    ],
+}
+
+S["CASE001-S01B"] = {
+    "id": "CASE001-S01B", "title": "The Living Room", "storyTime": "9:55 PM",
+    "image": "assets/scene-livingroom.jpg",
+    "blocks": [
+        {"t": "n", "text": "The living room is too warm and too quiet. Eleanor Whitmore sits on the edge of the sofa in a dark dress, hands folded in her lap, a blanket someone \u2014 Reyes, probably \u2014 draped over her shoulders. She looks up when you enter. Her eyes are dry. That isn\u2019t guilt; you\u2019ve seen enough grief to know it doesn\u2019t always leak."},
+        {"t": "n", "text": "Above the mantel hangs the family photograph: the three Whitmores on this very porch, three summers ago, smiling into the sun. Daniel\u2019s arm around his daughter. His smile doesn\u2019t reach his eyes. You know that look. You\u2019ve worn it at fundraisers."},
+        {"t": "d", "who": "Eleanor Whitmore", "text": "Detective. Whatever you need \u2014 I\u2019ll tell you everything. I just\u2026 I need a moment before the questions."},
+        {"t": "n", "text": "You nod and take the photograph down carefully, bag it. A young woman \u2014 the daughter, Claire \u2014 hovers in the hallway beyond, half in shadow, watching. She disappears when your eyes find her."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s01b"},
+        {"a": "evidence", "id": "EVIDENCE-003"},
+        {"a": "flag", "k": "saw_eleanor", "v": True},
+    ],
+    "choices": [
+        {"id": "s01b-back", "label": "Return to the front hall", "sub": "The study is waiting.", "go": "CASE001-S01"},
+    ],
+}
+
+S["CASE001-S02"] = {
+    "id": "CASE001-S02", "title": "The Study", "storyTime": "10:02 PM",
+    "image": "assets/scene-study.jpg",
+    "checkpoint": {"id": "CASE001-CP01", "name": "Crime Scene Entry"},
+    "blocks": [
+        {"t": "n", "text": "The study smells of leather, gun oil, and rain coming through a window someone left cracked. Daniel Whitmore lies on the rug under a sheet, and the room has arranged itself around him like a held note \u2014 desk, lamp still burning, a pistol resting on the blotter where no pistol should rest."},
+        {"t": "n", "text": "The sheet covers him completely; only the shape of a man remains, and a dark stain the rug has drunk at its edge. You stand in the doorway a moment and let the room talk. The desk drawers hang open. The window latch glints. Daniel\u2019s phone lies face-down beside a cold cup of coffee. Everything in here is a question wearing a room\u2019s clothes."},
+        {"t": "d", "who": "Officer Reyes", "text": "Take your time, Detective. Nobody\u2019s touching anything until you say so."},
+        {"t": "n", "text": "The rain ticks against the glass. Somewhere upstairs, a floorboard complains \u2014 the daughter, probably, or the house settling around what\u2019s happened in it."},
+        {"t": "sys", "text": "Work the scene. When you\u2019ve looked at the body and the gun, Reyes will let you begin the interviews."},
+    ],
+    "choices": [
+        {"id": "s02-body", "label": "Examine the body", "sub": "Under the sheet: Daniel Whitmore.", "go": "CASE001-S02A"},
+        {"id": "s02-gun", "label": "Examine the firearm", "sub": "A pistol lies on the desk.", "go": "CASE001-S02B"},
+        {"id": "s02-desk", "label": "Search the desk", "sub": "Drawers, papers, a laptop.", "go": "CASE001-S02C"},
+        {"id": "s02-window", "label": "Check the window", "sub": "Latched \u2014 or forced?", "go": "CASE001-S02D"},
+        {"id": "s02-phone", "label": "Check Daniel\u2019s phone", "sub": "Face-down on the blotter.", "go": "CASE001-S02E"},
+        {"id": "s02-blood", "label": "Study the blood pattern", "sub": "The rug tells its own story.", "go": "CASE001-S02F"},
+        {"id": "s02-interviews", "label": "Begin the interviews", "sub": "Talk to the people in this house.",
+         "if": [{"c": "flag", "k": "examined_body"}, {"c": "flag", "k": "examined_firearm"}],
+         "showDisabled": True,
+         "ifHint": "Not yet, Detective \u2014 you haven\u2019t looked at the body or the gun.",
+         "go": "CASE001-S03"},
+    ],
+}
+
+S["CASE001-S02A"] = {
+    "id": "CASE001-S02A", "title": "The Body", "storyTime": "10:08 PM",
+    "image": "assets/scene-study.jpg",
+    "blocks": [
+        {"t": "n", "text": "You kneel beside the sheet and fold it back with gloved hands, only as far as you need. Daniel Whitmore, fifty-two. One wound, center chest. You don\u2019t look long \u2014 the dead deserve efficiency \u2014 but you look carefully."},
+        {"t": "n", "text": "It\u2019s the blood that argues with the room. The pooling, the lividity settling in his back and shoulders \u2014 it doesn\u2019t match how he\u2019s lying. He was moved, thirty minutes or so after death, dragged a short distance across the rug and left to present a tidier scene than the one he died in."},
+        {"t": "n", "text": "Eleanor\u2019s account \u2014 a shot fired in panic, a body fallen where it fell \u2014 doesn\u2019t explain this. Someone rearranged the truth after the trigger was pulled."},
+        {"t": "sys", "text": "Dispatch update received."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s02a"},
+        {"a": "evidence", "id": "EVIDENCE-004"},
+        {"a": "flag", "k": "examined_body", "v": True},
+        {"a": "message", "thread": "dispatch", "message": {
+            "id": "d2", "from": "them",
+            "text": "ME\u2019s preliminary: single GSW, chest.", "at": "10:12 PM"}},
+    ],
+    "choices": [
+        {"id": "s02a-back", "label": "Step back", "sub": "The room is waiting.", "go": "CASE001-S02"},
+    ],
+}
+
+S["CASE001-S02B"] = {
+    "id": "CASE001-S02B", "title": "The Firearm", "storyTime": "10:14 PM",
+    "image": "assets/ev-firearm.jpg",
+    "blocks": [
+        {"t": "n", "text": "The pistol sits on the blotter like an exhibit that posed itself. Daniel Whitmore\u2019s registered weapon \u2014 Reyes already ran the serial. You lift it with a pen through the trigger guard and turn it under the lamp."},
+        {"t": "n", "text": "It\u2019s clean. Not \u201cwiped down\u201d clean \u2014 forensically clean. No prints at all. Not Daniel\u2019s. Not Eleanor\u2019s, though she says she fired it. Someone took a cloth to this gun after the shooting and erased everyone who ever touched it."},
+        {"t": "n", "text": "People wipe guns for one reason: to decide what the gun is allowed to say. Whoever cleaned this one was thinking clearly, and thinking about the future."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s02b"},
+        {"a": "evidence", "id": "EVIDENCE-005"},
+        {"a": "flag", "k": "examined_firearm", "v": True},
+    ],
+    "choices": [
+        {"id": "s02b-back", "label": "Set it down", "sub": "Bag it for forensics.", "go": "CASE001-S02"},
+    ],
+}
+
+S["CASE001-S02C"] = {
+    "id": "CASE001-S02C", "title": "The Desk", "storyTime": "10:21 PM",
+    "image": "assets/ev-desk.jpg",
+    "blocks": [
+        {"t": "n", "text": "The desk is a battlefield of paper. Daniel\u2019s laptop sits open, its screen dark \u2014 encrypted, but the file index shows a massacre of deletions timestamped 9:14 PM. Daniel died around 8:47. Somebody used this machine after he was dead, and they were in a hurry."},
+        {"t": "n", "text": "In the top drawer, under a stack of charity gala programs, a handwritten note in a hurried hand: \u201cIf anything happens \u2014 ask M.V. Everything is in the second drawer. \u2014 D.\u201d M.V. You already know a Marcus Vale exists in Daniel\u2019s orbit. Now you know Daniel was afraid enough to write it down."},
+        {"t": "n", "text": "The second drawer sticks. When you press the side panel, the wood gives a quarter inch \u2014 a hidden compartment, shallow, dust-lined. Something sat in there a long time. Your thumbnail finds the edge of the panel."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s02c"},
+        {"a": "evidence", "id": "EVIDENCE-006"},
+        {"a": "evidence", "id": "EVIDENCE-007"},
+    ],
+    "choices": [
+        {"id": "s02c-drawer", "label": "Pry open the loose second drawer", "sub": "The panel is begging to come off.",
+         "if": [{"c": "not", "cond": {"c": "hasEvidence", "id": "EVIDENCE-008"}}],
+         "do": [
+             {"a": "evidence", "id": "EVIDENCE-008"},
+             {"a": "notify", "text": "Hidden compartment: a page of coded payments \u2014 \u201cORPHEUS \u2014 Q3 disbursements.\u201d"},
+         ],
+         "go": "CASE001-S02C"},
+        {"id": "s02c-back", "label": "Step back", "sub": "The desk has told you enough.", "go": "CASE001-S02"},
+    ],
+}
+
+S["CASE001-S02D"] = {
+    "id": "CASE001-S02D", "title": "The Window", "storyTime": "10:27 PM",
+    "image": "assets/ev-window.jpg",
+    "blocks": [
+        {"t": "n", "text": "The study window is latched \u2014 but the latch is wrong. Mud on the sill, mud smeared across the latch itself, and a long smear down the outside frame where a shoe slid. Someone climbed out of this window recently, in a hurry, in the rain."},
+        {"t": "n", "text": "You hold your flashlight to the mud and then think of the back walk. Same soil, same rain. Whoever left through this window walked in through the mud first."},
+        {"t": "n", "text": "The front door would have been simpler. You only leave through a window when you don\u2019t want to be seen leaving \u2014 and only after doing something you don\u2019t want found."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s02d"},
+        {"a": "evidence", "id": "EVIDENCE-009"},
+    ],
+    "choices": [
+        {"id": "s02d-back", "label": "Turn from the window", "sub": "Back to the room.", "go": "CASE001-S02"},
+    ],
+}
+
+S["CASE001-S02E"] = {
+    "id": "CASE001-S02E", "title": "The Phone", "storyTime": "10:33 PM",
+    "image": "assets/ev-phone.jpg",
+    "blocks": [
+        {"t": "n", "text": "Daniel\u2019s phone is face-down on the blotter, as if he\u2019d set it aside mid-thought and never picked it up. You bag it, glove it, wake it with the department kit. Two things surface."},
+        {"t": "n", "text": "First: a week of texts from an unknown number, each one colder than the last. \u201cYou don\u2019t get to walk away.\u201d \u201cWe made you, Daniel.\u201d \u201cThursday. Decide.\u201d Daniel was being leaned on, and he knew it."},
+        {"t": "n", "text": "Second: the call log. At 9:02 PM \u2014 forty-four minutes after the shooting, twenty-nine minutes before Eleanor called 911 \u2014 Eleanor called Marcus Vale. She never mentioned that call to Reyes."},
+        {"t": "n", "text": "Your own phone buzzes in your pocket. Unknown number. You already know, the way you know rain, that this isn\u2019t a coincidence."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s02e"},
+        {"a": "evidence", "id": "EVIDENCE-011"},
+        {"a": "evidence", "id": "EVIDENCE-012"},
+        {"a": "message", "thread": "unknown", "message": {
+            "id": "u1", "from": "them",
+            "text": "Detective. Some stones are better left unturned.", "at": "10:33 PM",
+            "replies": [
+                {"id": "u1r1", "label": "Who is this?",
+                 "response": {"id": "u1r1m", "from": "them",
+                             "text": "Someone who liked Daniel better alive. Leave Blackwood.",
+                             "at": "10:34 PM"}},
+                {"id": "u1r2", "label": "Trace this number.",
+                 "response": {"id": "u1r2m", "from": "them",
+                             "text": "Burner. Don\u2019t waste your time.", "at": "10:34 PM"},
+                 "do": [{"a": "flag", "k": "threatened", "v": True}]},
+            ]}},
+    ],
+    "choices": [
+        {"id": "s02e-back", "label": "Pocket the phone", "sub": "Evidence bag, chain of custody.", "go": "CASE001-S02"},
+    ],
+}
+
+S["CASE001-S02F"] = {
+    "id": "CASE001-S02F", "title": "Blood Pattern", "storyTime": "10:39 PM",
+    "image": "assets/ev-blood.jpg",
+    "blocks": [
+        {"t": "n", "text": "You step back and read the rug the way you\u2019d read a map. The cast-off arcs, the drag marks running two feet across the weave \u2014 the body was pulled after the bleeding slowed. Not carried. Dragged, by someone who didn\u2019t want to lift him."},
+        {"t": "n", "text": "Thirty minutes after death, give or take. Someone came back to the body \u2014 or arrived after \u2014 and went through him. The pockets of Daniel\u2019s jacket hang wrong, turned half inside-out."},
+        {"t": "n", "text": "Eleanor says she fired in panic and called for help. Nothing about moving him. Nothing about going through his pockets. The rug says otherwise, and rugs don\u2019t panic."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s02f"},
+        {"a": "evidence", "id": "EVIDENCE-010"},
+        {"a": "note", "id": "sn-moved"},
+    ],
+    "choices": [
+        {"id": "s02f-back", "label": "Straighten up", "sub": "You\u2019ve seen enough.", "go": "CASE001-S02"},
+    ],
+}
+
+S["CASE001-S03"] = {
+    "id": "CASE001-S03", "title": "Interviews", "storyTime": "10:50 PM",
+    "image": "assets/scene-livingroom.jpg",
+    "checkpoint": {"id": "CASE001-CP02", "name": "Interviews Begin"},
+    "blocks": [
+        {"t": "n", "text": "The living room has become an interview room with better furniture. Reyes has arranged it with a uniform\u2019s efficiency: Eleanor on the sofa, Marcus Vale \u2014 arrived twenty minutes ago, coat still damp \u2014 in the armchair like he owns it, Claire hovering by the window, and Dr. Cole, summoned by phone, perched on the piano bench looking like he\u2019d rather be anywhere else."},
+        {"t": "n", "text": "You take the chair facing them all. Four people, four versions of Daniel Whitmore. Somewhere under the floorboards of this house, the truth is keeping very still."},
+        {"t": "d", "who": "Marcus Vale", "text": "Detective. Tragic business. Whatever I can do to help \u2014 Daniel was like a brother to me."},
+        {"t": "n", "text": "Claire flinches at that. Eleanor doesn\u2019t look at him at all. Interesting."},
+    ],
+    "onEnter": [
+        {"a": "once", "key": "s03-reyes"},
+        {"a": "message", "thread": "reyes", "message": {
+            "id": "r1", "from": "them",
+            "text": "Interviews are set up in the living room whenever you\u2019re ready.",
+            "at": "10:50 PM"}},
+    ],
+    "choices": [
+        {"id": "s03-eleanor", "label": "Interview Eleanor Whitmore", "sub": "The wife. Composed, grieving.", "go": "CASE001-S03A"},
+        {"id": "s03-marcus", "label": "Interview Marcus Vale", "sub": "The partner. Polished.", "go": "CASE001-S03B"},
+        {"id": "s03-claire", "label": "Interview Claire Whitmore", "sub": "The daughter. Frightened.", "go": "CASE001-S03C"},
+        {"id": "s03-cole", "label": "Interview Dr. Adrian Cole", "sub": "The family physician.", "go": "CASE001-S03D"},
+        {"id": "s03-call", "label": "Make the call", "sub": "Decide how this ends.", "go": "CASE001-S04"},
+    ],
+}
+
+S["CASE001-S03A"] = {
+    "id": "CASE001-S03A", "title": "Eleanor Whitmore", "storyTime": "10:58 PM",
+    "image": "assets/portrait-eleanor.jpg",
+    "blocks": [
+        {"t": "n", "text": "Up close, Eleanor Whitmore\u2019s composure has hairline cracks. Her hands tremble when she thinks you\u2019re not looking. She folds them tighter."},
+        {"t": "d", "who": "Eleanor Whitmore", "text": "We argued. About money \u2014 about the foundation, about\u2026 he\u2019d changed, Detective. Tonight he was someone I didn\u2019t recognize. He came at me \u2014 his hands \u2014"},
+        {"t": "n", "text": "She touches her throat without realizing. There are faint marks there \u2014 finger-shaped, already yellowing. You photograph them with your eyes."},
+        {"t": "d", "who": "Eleanor Whitmore", "text": "The gun was in his drawer. I didn\u2019t think. It just \u2014 went off. I held him while he\u2026 and then I couldn\u2019t think at all."},
+        {"t": "n", "text": "It\u2019s a clean account. Almost too clean. The 9:02 PM call sits between you like a third person in the room."},
+    ],
+    "choices": [
+        {"id": "s03a-story", "label": "Ask her to walk you through the argument", "sub": "Slowly. Every detail.",
+         "if": [{"c": "not", "cond": {"c": "flag", "k": "eleanor_story"}}],
+         "do": [
+             {"a": "flag", "k": "eleanor_story", "v": True},
+             {"a": "notify", "text": "Her account never wavers: the drawer, the lunge, the single shot. The throat marks back her up."},
+         ],
+         "go": "CASE001-S03A"},
+        {"id": "s03a-water", "label": "Offer her a glass of water", "sub": "A small kindness.",
+         "if": [{"c": "not", "cond": {"c": "flag", "k": "eleanor_water"}}],
+         "do": [
+             {"a": "flag", "k": "eleanor_water", "v": True},
+             {"a": "trust", "who": "eleanor", "d": 1},
+             {"a": "notify", "text": "Her hand steadies around the glass. \u201cThank you,\u201d she says quietly. Something in her unclenches."},
+         ],
+         "go": "CASE001-S03A"},
+        {"id": "s03a-call", "label": "Ask about the 9:02 PM call", "sub": "Twenty-nine minutes before 911.",
+         "if": [{"c": "hasEvidence", "id": "EVIDENCE-012"},
+                {"c": "not", "cond": {"c": "flag", "k": "eleanor_confessed"}}],
+         "do": [
+             {"a": "flag", "k": "eleanor_confessed", "v": True},
+             {"a": "trust", "who": "eleanor", "d": 1},
+             {"a": "notify", "text": "She breaks. \u201cI called Marcus. I panicked \u2014 Daniel was dead and I didn\u2019t know what to do. He said he\u2019d handle it.\u201d"},
+         ],
+         "go": "CASE001-S03A"},
+        {"id": "s03a-leave", "label": "Leave her to her thoughts", "sub": "You\u2019ll come back if you need to.", "go": "CASE001-S03"},
+    ],
+}
+
+S["CASE001-S03B"] = {
+    "id": "CASE001-S03B", "title": "Marcus Vale", "storyTime": "11:08 PM",
+    "image": "assets/portrait-marcus.jpg",
+    "blocks": [
+        {"t": "n", "text": "Marcus Vale is fifty-five and wears it like tailoring. Silver hair, easy smile, eyes that do arithmetic while he talks. He crossed the room to shake your hand when you entered, as if this were his house and you his guest."},
+        {"t": "d", "who": "Marcus Vale", "text": "Daniel and I built Whitmore Logistics together \u2014 twenty years. And the foundation, of course. Ask anyone in Blackwood what Daniel meant to this town."},
+        {"t": "d", "who": "Marcus Vale", "text": "Where was I tonight? Home. Alone. A terrible thing, to hear it from a police officer\u2019s mouth. Eleanor must be destroyed."},
+        {"t": "n", "text": "He says all of it smoothly. Too smoothly \u2014 the account of a man who rehearsed in the car. You notice mud on the welt of his left shoe, and he notices you noticing."},
+    ],
+    "choices": [
+        {"id": "s03b-partner", "label": "Ask about his partnership with Daniel", "sub": "Twenty years is a long time.",
+         "if": [{"c": "not", "cond": {"c": "flag", "k": "marcus_story"}}],
+         "do": [
+             {"a": "flag", "k": "marcus_story", "v": True},
+             {"a": "notify", "text": "\u201cTwenty years,\u201d he says, spreading his hands. \u201cBrothers, really.\u201d The word sits oddly in his mouth."},
+         ],
+         "go": "CASE001-S03B"},
+        {"id": "s03b-alibi", "label": "Press him on where he was tonight", "sub": "Home. Alone. Convenient.",
+         "if": [{"c": "not", "cond": {"c": "flag", "k": "marcus_alibi"}}],
+         "do": [
+             {"a": "flag", "k": "marcus_alibi", "v": True},
+             {"a": "notify", "text": "\u201cHome. Alone.\u201d He smiles. \u201cCheck if you like. There\u2019s no one to ask.\u201d"},
+         ],
+         "go": "CASE001-S03B"},
+        {"id": "s03b-ledger", "label": "Present the Orpheus ledger page", "sub": "Q3 disbursements. His move.",
+         "if": [{"c": "hasEvidence", "id": "EVIDENCE-008"},
+                {"c": "not", "cond": {"c": "flag", "k": "marcus_admitted_cleanup"}}],
+         "do": [
+             {"a": "flag", "k": "marcus_admitted_cleanup", "v": True},
+             {"a": "notify", "text": "The charm drops like a curtain. \u201cI tidied up,\u201d he says flatly. \u201cThe gun, the laptop \u2014 Daniel was dead when I arrived. You can\u2019t prove otherwise.\u201d"},
+         ],
+         "go": "CASE001-S03B"},
+        {"id": "s03b-leave", "label": "End the interview", "sub": "Let him sit with that.", "go": "CASE001-S03"},
+    ],
+}
+
+S["CASE001-S03C"] = {
+    "id": "CASE001-S03C", "title": "Claire Whitmore", "storyTime": "11:16 PM",
+    "image": "assets/portrait-claire.jpg",
+    "blocks": [
+        {"t": "n", "text": "Claire Whitmore is twenty-four and looks sixteen tonight, wrapped in a cardigan, arms crossed tight. She keeps glancing at the hallway, as if the house itself might overhear."},
+        {"t": "d", "who": "Claire Whitmore", "text": "I heard them fighting. Mom was crying \u2014 she never cries. Then the\u2026 the noise. I stayed in my room. I should have gone down. I should have \u2014"},
+        {"t": "n", "text": "She stops, breathing hard. You wait. Waiting is half the job."},
+        {"t": "d", "who": "Claire Whitmore", "text": "Mr. Vale scares me. He\u2019s always been\u2026 around. Watching. Mom says he\u2019s family. He isn\u2019t family."},
+        {"t": "n", "text": "She\u2019s holding something back. Fear does that \u2014 locks the jaw around the one thing that matters."},
+    ],
+    "choices": [
+        {"id": "s03c-heard", "label": "Ask what she heard that night", "sub": "Gently. She\u2019s barely holding together.",
+         "if": [{"c": "not", "cond": {"c": "flag", "k": "claire_story"}}],
+         "do": [
+             {"a": "flag", "k": "claire_story", "v": True},
+             {"a": "notify", "text": "\u201cThe argument, then the shot. Then \u2014 later \u2014 a car. I didn\u2019t see whose.\u201d Her eyes flick toward the window."},
+         ],
+         "go": "CASE001-S03C"},
+        {"id": "s03c-reassure", "label": "Reassure her she\u2019s safe", "sub": "Mean it.",
+         "if": [{"c": "not", "cond": {"c": "flag", "k": "claire_trust"}}],
+         "do": [
+             {"a": "flag", "k": "claire_trust", "v": True},
+             {"a": "trust", "who": "claire", "d": 1},
+             {"a": "notify", "text": "\u201cYou\u2019re safe here,\u201d you tell her. \u201cNothing leaves this room without your say.\u201d She exhales, and nods \u2014 once."},
+         ],
+         "go": "CASE001-S03C"},
+        {"id": "s03c-photo", "label": "Ask if she saw anything outside", "sub": "Her eyes keep going to the window.",
+         "if": [{"c": "trust", "who": "claire", "gte": 1},
+                {"c": "not", "cond": {"c": "hasEvidence", "id": "EVIDENCE-013"}}],
+         "do": [
+             {"a": "evidence", "id": "EVIDENCE-013"},
+             {"a": "notify", "text": "She pulls out her phone with shaking hands. \u201cI took this from my window. 9:15. That\u2019s Mr. Vale\u2019s car.\u201d"},
+         ],
+         "go": "CASE001-S03C"},
+        {"id": "s03c-leave", "label": "Let her rest", "sub": "She\u2019s given you enough.", "go": "CASE001-S03"},
+    ],
+}
+
+S["CASE001-S03D"] = {
+    "id": "CASE001-S03D", "title": "Dr. Adrian Cole", "storyTime": "11:22 PM",
+    "image": "assets/portrait-cole.jpg",
+    "blocks": [
+        {"t": "n", "text": "Dr. Adrian Cole sits on the piano bench with a doctor\u2019s upright spine and a witness\u2019s unhappy eyes. Sixty-three, physician to the Whitmores for two decades, and everything about him says he\u2019d rather be reading a chart than sitting in this room."},
+        {"t": "d", "who": "Dr. Adrian Cole", "text": "Daniel was my patient and my friend. If you\u2019re asking whether he was well \u2014 he wasn\u2019t sleeping. He asked me about sedatives. I told him to try counting sheep like the rest of us."},
+        {"t": "d", "who": "Dr. Adrian Cole", "text": "He said\u2026 he said his associates worried him. I told him business stress, take a holiday. I wish I\u2019d listened harder."},
+        {"t": "n", "text": "He stops there, the way ethical men do \u2014 at the exact border of what they think they\u2019re allowed to say."},
+    ],
+    "choices": [
+        {"id": "s03d-mind", "label": "Ask about Daniel\u2019s state of mind", "sub": "Weeks before tonight.",
+         "if": [{"c": "not", "cond": {"c": "flag", "k": "cole_general"}}],
+         "do": [
+             {"a": "flag", "k": "cole_general", "v": True},
+             {"a": "notify", "text": "\u201cAnxious. Guarded. A man waiting for a letter he didn\u2019t want to open.\u201d Cole folds his hands. \u201cThat\u2019s a diagnosis of sorts.\u201d"},
+         ],
+         "go": "CASE001-S03D"},
+        {"id": "s03d-afraid", "label": "Ask directly: was Daniel afraid of someone?", "sub": "No more dancing around it.",
+         "if": [{"c": "not", "cond": {"c": "hasEvidence", "id": "EVIDENCE-014"}}],
+         "do": [
+             {"a": "evidence", "id": "EVIDENCE-014"},
+             {"a": "notify", "text": "Cole hesitates \u2014 then nods. \u201cHe believed they\u2019d kill him if he tried to leave. His words, Detective. Not mine.\u201d"},
+         ],
+         "go": "CASE001-S03D"},
+        {"id": "s03d-leave", "label": "Thank him for coming", "sub": "Late night for a doctor.", "go": "CASE001-S03"},
+    ],
+}
+
+S["CASE001-S04"] = {
+    "id": "CASE001-S04", "title": "The Call", "storyTime": "11:30 PM",
+    "image": "assets/scene-study.jpg",
+    "blocks": [
+        {"t": "n", "text": "Back in the study, the rain has thinned to a whisper. The sheet, the lamp, the clean gun in its bag \u2014 the room has given you everything it\u2019s going to give. Reyes waits in the hall with her notebook closed, which for Reyes is practically a salute."},
+        {"t": "n", "text": "You lay it out in your head one last time. Eleanor fired the shot \u2014 the throat marks, her account, the forensics all agree. But the wiped gun, the moved body, the window, the 9:02 call, the ledger page with its coded millions: someone came after, and cleaned, and stole."},
+        {"t": "n", "text": "Marcus Vale was in this house tonight. The question is what you can prove \u2014 and what proving it costs. Three paths. One phone call."},
+        {"t": "sys", "text": "Review your evidence. This decision is final."},
+    ],
+    "choices": [
+        {"id": "s04-a", "label": "Close the case: justifiable self-defense.", "sub": "The evidence supports Eleanor\u2019s account.", "ending": "ENDING-A"},
+        {"id": "s04-b", "label": "Lay out the whole truth: Eleanor acted in self-defense; charge Marcus Vale with tampering and theft.", "sub": "The ledger, the wiped gun, the window, the call \u2014 it\u2019s all connected.",
+         "if": [{"c": "hasEvidence", "id": "EVIDENCE-005"},
+                {"c": "hasEvidence", "id": "EVIDENCE-008"},
+                {"c": "hasEvidence", "id": "EVIDENCE-009"},
+                {"c": "hasEvidence", "id": "EVIDENCE-012"}],
+         "showDisabled": True,
+         "ifHint": "You don\u2019t have enough to prove the full sequence yet.",
+         "ending": "ENDING-B"},
+        {"id": "s04-c", "label": "Arrest Marcus Vale for the murder of Daniel Whitmore.", "sub": "He was here that night. The rest is noise.", "ending": "ENDING-C"},
+    ],
+}
+
+S["ENDING-A"] = {
+    "id": "ENDING-A", "title": "The Official Story", "storyTime": "11:35 PM",
+    "image": "assets/scene-study.jpg",
+    "blocks": [
+        {"t": "n", "text": "You make the call. Justifiable self-defense. The paperwork practically writes itself \u2014 the throat marks, the consistent account, the forensics that back her."},
+        {"t": "n", "text": "Eleanor walks out of the living room into the rain without handcuffs. Claire holds her mother\u2019s arm. Marcus Vale watches from the porch, expression unreadable, and then he\u2019s gone into the dark like he was never there."},
+        {"t": "sys", "text": "Case closed."},
+    ],
+    "ending": {"id": "ENDING-A"},
+}
+
+S["ENDING-B"] = {
+    "id": "ENDING-B", "title": "The Whole Truth", "storyTime": "11:35 PM",
+    "image": "assets/scene-exterior.jpg",
+    "blocks": [
+        {"t": "n", "text": "You lay it out for Reyes, piece by piece \u2014 the wiped gun, the ledger page, the window, the 9:02 call. Her eyebrows climb with every item. By the end she\u2019s on the radio."},
+        {"t": "n", "text": "They take Marcus Vale on the porch, in the rain, in front of the house he thought he\u2019d cleaned. He doesn\u2019t resist. \u201cDaniel was dead when I arrived,\u201d he says, as the cuffs close. \u201cYou can\u2019t prove otherwise.\u201d"},
+        {"t": "n", "text": "Eleanor\u2019s self-defense is ruled justified. The ledger goes to the state police in a sealed bag. And on the drive back, Reyes says what you\u2019re both thinking: Blackwood was just one cell."},
+    ],
+    "ending": {"id": "ENDING-B"},
+}
+
+S["ENDING-C"] = {
+    "id": "ENDING-C", "title": "The Wrong Man", "storyTime": "11:35 PM",
+    "image": "assets/scene-arrival.jpg",
+    "blocks": [
+        {"t": "n", "text": "You make the call. Marcus Vale, for the murder of Daniel Whitmore. The cuffs, the cameras, the DA\u2019s press conference \u2014 it all moves so fast it feels like justice."},
+        {"t": "n", "text": "It isn\u2019t. Forensics is patient and merciless: the ballistics, the residue patterns, the timeline \u2014 none of it puts the gun in Marcus\u2019s hand. He never fired it. The charge collapses in eleven days."},
+        {"t": "n", "text": "The DA, embarrassed, reopens against Eleanor. She takes a manslaughter plea to make it stop. Marcus walks out of the courthouse into the sun, free, and the real story \u2014 the network, the cleanup, the ledger \u2014 is buried under your rush to judgment."},
+    ],
+    "ending": {"id": "ENDING-C"},
+}
+
+# ---------------------------------------------------------------- endings
+EN = content["endings"]
+EN["ENDING-A"] = {
+    "id": "ENDING-A", "title": "The Official Story",
+    "image": "assets/scene-study.jpg",
+    "summary": "Eleanor Whitmore\u2019s self-defense claim is accepted and the case closes. Marcus Vale is never charged.",
+    "epilogue": "Three weeks later, a wire transfer marked ORPHEUS clears through a Blackwood account \u2014 seven figures, routed through three shells. The network survives. Somewhere, Marcus Vale pours a drink to Daniel\u2019s memory, and the stones stay unturned.",
+}
+EN["ENDING-B"] = {
+    "id": "ENDING-B", "title": "The Whole Truth",
+    "image": "assets/scene-exterior.jpg",
+    "summary": "Marcus Vale is arrested for tampering, theft, and obstruction; Eleanor\u2019s self-defense is ruled justified; the Orpheus ledger goes to the state police.",
+    "epilogue": "The ledger names eleven cities. Blackwood was just one cell. The state police open a task force, and your phone rings twice a week with questions you can\u2019t answer yet. Marcus Vale hires four lawyers. Eleanor Whitmore plants roses over the place where the rug used to be. The truth, for once, got written down.",
+}
+EN["ENDING-C"] = {
+    "id": "ENDING-C", "title": "The Wrong Man",
+    "image": "assets/scene-arrival.jpg",
+    "summary": "Marcus Vale is arrested for murder \u2014 but forensics prove he never fired the gun. The case collapses; Eleanor takes a manslaughter plea; Marcus walks free.",
+    "epilogue": "The ledger never surfaces. ORPHEUS routes around Blackwood like water around a stone. Years later, you\u2019ll still wake up thinking about the window latch, and the mud, and the difference between being in the house and pulling the trigger. Some stones, it turns out, bury you.",
+}
+
+# ---------------------------------------------------------------- phone
+content["phone"]["threads"] = [
+    {"id": "dispatch", "contact": "Dispatch",
+     "messages": [
+         {"id": "d1", "from": "them",
+          "text": "Body confirmed at 17 Blackwood Lane. Victim: Daniel Whitmore. Spouse on scene.",
+          "at": "9:50 PM",
+          "replies": [
+              {"id": "d1r1", "label": "Acknowledged.",
+               "response": {"id": "d1r1m", "from": "them", "text": "Copy that, Detective.", "at": "9:50 PM"}},
+              {"id": "d1r2", "label": "Any word from the ME?",
+               "response": {"id": "d1r2m", "from": "them", "text": "En route. I\u2019ll ping you when the preliminary lands.", "at": "9:51 PM"}},
+          ]},
+     ]},
+    {"id": "unknown", "contact": "Unknown Number", "messages": []},
+    {"id": "reyes", "contact": "Officer Reyes", "messages": []},
+]
+
+# ---------------------------------------------------------------- database
+content["database"] = [
+    {"id": "db-daniel", "kind": "Person", "name": "Daniel Whitmore",
+     "image": "assets/photo-daniel.jpg",
+     "summary": "Blackwood philanthropist, 52. Owner of Whitmore Logistics. Registered owner of the pistol found in the study.",
+     "details": "Founder of the Whitmore Charitable Foundation and CEO of Whitmore Logistics. No criminal record. "
+                "Firearm registration on file matches the pistol recovered from the study (see EVIDENCE-005). "
+                "Publicly a pillar of Blackwood; privately, the financial records suggest a second life his "
+                "charity galas never mentioned.",
+     "locked": False},
+    {"id": "db-eleanor", "kind": "Person", "name": "Eleanor Whitmore",
+     "summary": "Wife of the victim, 48. No criminal record.",
+     "details": "Married to Daniel Whitmore for 26 years. No arrests, no warrants, no record of any kind. "
+                "Listed as a trustee of the Whitmore Charitable Foundation. Currently at the scene, cooperating.",
+     "locked": False},
+    {"id": "db-marcus", "kind": "Person", "name": "Marcus Vale",
+     "summary": "Daniel Whitmore\u2019s business partner, 55. Subject of a fraud investigation in 2019 \u2014 dropped for lack of evidence.",
+     "details": "Co-founder of Whitmore Logistics and director of Vale Holdings. Investigated for corporate fraud "
+                "in 2019; the case was dropped for lack of evidence. Known associate of Daniel Whitmore for "
+                "twenty years. Alibi for tonight is unverified.",
+     "locked": False},
+    {"id": "db-claire", "kind": "Person", "name": "Claire Whitmore",
+     "summary": "Daughter of Daniel and Eleanor Whitmore, 24. Graduate student.",
+     "details": "Graduate student, lives at the family home. No record. Was home on the night of the shooting. "
+                "Described by officers as frightened but cooperative.",
+     "locked": False},
+    {"id": "db-cole", "kind": "Person", "name": "Dr. Adrian Cole",
+     "summary": "Family physician to the Whitmores, 63. Clean record.",
+     "details": "Practicing physician, Blackwood General. Daniel Whitmore\u2019s doctor for two decades. No "
+                "malpractice history, no criminal record. Summoned to the scene to speak about Daniel\u2019s "
+                "state of mind in recent weeks.",
+     "locked": False},
+    {"id": "db-orpheus", "kind": "Organization", "name": "ORPHEUS",
+     "summary": "No official records. The ledger suggests a private intelligence network.",
+     "details": "No incorporation papers, no tax filings, no official trace \u2014 and that is the point. The "
+                "recovered ledger page describes coded quarterly disbursements moving through shell entities "
+                "tied to the Whitmore foundation. Pattern is consistent with a private intelligence brokerage: "
+                "buying and selling corporate secrets and leverage.",
+     "locked": True,
+     "unlockIf": [{"c": "hasEvidence", "id": "EVIDENCE-008"}],
+     "unlockHint": "Requires evidence."},
+    {"id": "db-address", "kind": "Address", "name": "17 Blackwood Lane",
+     "summary": "Property record: single-family residence, owned by Daniel and Eleanor Whitmore since 2004.",
+     "details": "Two-story colonial on a half-acre lot, purchased 2004. No liens. Alarm system registered but "
+                "disarmed on the night in question. The study window \u2014 ground floor, rear \u2014 is noted in "
+                "the original floor plan.",
+     "locked": False},
+    {"id": "db-sedan", "kind": "Vehicle", "name": "Black Sedan",
+     "summary": "Registered to Vale Holdings.",
+     "details": "Late-model black sedan. Plates trace to Vale Holdings \u2014 Marcus Vale\u2019s company. Photographed "
+                "leaving Blackwood Lane at 9:15 PM on the night of the shooting (see EVIDENCE-013).",
+     "locked": True,
+     "unlockIf": [{"c": "hasEvidence", "id": "EVIDENCE-013"}],
+     "unlockHint": "Requires evidence."},
+]
+
+# ---------------------------------------------------------------- theories
+content["theories"] = [
+    {"id": "th-shot", "question": "Who fired the fatal shot?",
+     "options": ["Eleanor Whitmore", "Marcus Vale", "An intruder", "Unknown"]},
+    {"id": "th-moved", "question": "Was the body moved after death?",
+     "options": ["Yes", "No", "Undecided"]},
+    {"id": "th-orpheus", "question": "What is Orpheus?",
+     "options": ["A company", "A criminal network", "Nothing \u2014 a code word", "Undecided"]},
+]
+
+# ---------------------------------------------------------------- system notes
+content["systemNotes"] = [
+    {"id": "sn-moved",
+     "text": "The body was moved after death \u2014 Eleanor\u2019s account doesn\u2019t explain this."},
+]
+
+# ---------------------------------------------------------------- write
+with open("/home/hatch/workspace/zeraphine/content.json", "w", encoding="utf-8") as f:
+    json.dump(content, f, ensure_ascii=False, indent=2)
+
+print("Wrote content.json:",
+      len(content["scenes"]), "scenes,",
+      len(content["evidence"]), "evidence,",
+      len(content["endings"]), "endings,",
+      len(content["phone"]["threads"]), "threads,",
+      len(content["database"]), "db records,",
+      len(content["theories"]), "theories.")
+
+# ---------------------------------------------------------------- word-count patch
+EXTRA = {
+"CASE001-S01A": [
+    {"t": "n", "text": "The side gate hangs ajar, its latch rusted open. Beyond it, the lane is empty, rain drumming on parked cars. Whoever came through here knew the house \u2014 knew the gate, knew the dark stretch of the walk, knew which window belonged to the study."},
+],
+"CASE001-S02A": [
+    {"t": "n", "text": "Reyes watches from the doorway, quiet for once. \u201cThirty minutes, give or take,\u201d she murmurs, reading your face. You nod. Thirty minutes after death, someone stood where you\u2019re standing and moved a dead man like furniture."},
+    {"t": "n", "text": "You fold the sheet back into place with the same care you took removing it. The dead can\u2019t be helped, but they can be respected. The living, though \u2014 the living still have questions to answer."},
+],
+"CASE001-S02B": [
+    {"t": "n", "text": "You turn the pistol over once more, checking the grip, the slide, the muzzle. Nothing. A gun this clean has a history it\u2019s been forbidden to tell \u2014 and the man who forbade it stood in this room tonight, thinking about tomorrow."},
+    {"t": "d", "who": "Officer Reyes", "text": "Somebody wanted this gun to be a mystery."},
+    {"t": "n", "text": "You don\u2019t correct her. Somebody wanted this gun to be innocent."},
+],
+"CASE001-S02C": [
+    {"t": "n", "text": "You photograph the note, the laptop, the drawer\u2019s false panel, each in turn. Methodical. The room rewards patience \u2014 it hid a compartment for years, and it will hide its other secrets just as long if you rush."},
+    {"t": "d", "who": "Officer Reyes", "text": "That second drawer \u2014 you want me to log it as a concealment?"},
+    {"t": "d", "who": "Detective", "text": "Log everything. Especially the things that were meant to stay hidden."},
+],
+"CASE001-S02D": [
+    {"t": "n", "text": "You sketch the smear in your notebook: latch, sill, outer frame. The pattern is unmistakable \u2014 a gloved hand on the latch, a shoulder against the frame, a shoe finding purchase and slipping."},
+    {"t": "n", "text": "Outside, the rain has already begun its own cleanup. By morning there\u2019ll be nothing left out there. But in here \u2014 in here the window remembers."},
+    {"t": "d", "who": "Officer Reyes", "text": "So our visitor left through the window."},
+    {"t": "d", "who": "Detective", "text": "Our visitor didn\u2019t want the front door to know he\u2019d been here."},
+],
+"CASE001-S02E": [
+    {"t": "n", "text": "You scroll the threats once more, memorizing the cadence. Whoever wrote them knew Daniel \u2014 knew what he\u2019d built, and what walking away would cost. \u201cThursday. Decide.\u201d Thursday was two days ago."},
+    {"t": "n", "text": "And then your own phone buzzes. You stare at the unknown number for a long moment before you understand: someone is watching this investigation in real time. Someone who knew the moment you touched Daniel\u2019s phone."},
+],
+"CASE001-S02F": [
+    {"t": "n", "text": "You crouch and trace the drag marks with your flashlight, not touching. Two feet. The rug fibers lie in combed lines, all pointing the same way \u2014 toward the desk, as if the body had been pulled closer to something, or away from it."},
+    {"t": "d", "who": "Officer Reyes", "text": "Searched, you think?"},
+    {"t": "d", "who": "Detective", "text": "Searched. Pockets turned. Somebody wanted something Daniel was carrying \u2014 or wanted us to think they did."},
+    {"t": "n", "text": "Either way, Eleanor\u2019s story has a hole in it now, two feet wide, shaped like a dragged man."},
+],
+"CASE001-S03": [
+    {"t": "n", "text": "Rain needles the windows. The four of them avoid each other\u2019s eyes with the discipline of people who have been avoiding them for years."},
+    {"t": "d", "who": "Officer Reyes", "text": "Eleanor\u2019s holding. Vale\u2019s performing. The girl\u2019s terrified. Cole looks like he swallowed a secret. Your call, Detective \u2014 where do you want to start?"},
+    {"t": "n", "text": "You set your notebook on your knee. One question at a time. That\u2019s how houses like this give up their dead."},
+],
+"CASE001-S03A": [
+    {"t": "n", "text": "She twists a plain gold band around her finger, around and around. Twenty-six years of marriage, and tonight it ended in a drawer, a lunge, a shot."},
+    {"t": "d", "who": "Eleanor Whitmore", "text": "I keep thinking if I\u2019d just \u2014 if I hadn\u2019t gone into the study. If I\u2019d let him have his secrets. But I found the ledger, Detective. I found what he\u2019d built. I couldn\u2019t un-find it."},
+    {"t": "n", "text": "The ledger. She says it like a name she\u2019s afraid to say twice."},
+],
+"CASE001-S03B": [
+    {"t": "n", "text": "He leans back, perfectly at ease, and you understand: this is a man who has been interviewed before. By better people than you, probably. In rooms with worse lighting."},
+    {"t": "d", "who": "Marcus Vale", "text": "Daniel was a visionary. The foundation, the jobs, the giving \u2014 Blackwood doesn\u2019t know what it lost. I intend to make sure his work continues."},
+    {"t": "n", "text": "\u201cHis work.\u201d The phrase hangs there, and you both know it doesn\u2019t mean the charity galas."},
+],
+"CASE001-S03C": [
+    {"t": "n", "text": "She picks at a loose thread on her cardigan. The rain has eased, and through the window you can see the dark rectangle of Blackwood Lane, wet and empty."},
+    {"t": "d", "who": "Claire Whitmore", "text": "Dad and Mr. Vale had a fight last month. Screaming, in the study. Dad said \u2014 he said \u201cyou don\u2019t own me.\u201d I\u2019d never heard him talk like that. Not to anyone."},
+    {"t": "n", "text": "She looks up at you, suddenly fierce through the fear. \u201cWhatever he did that night \u2014 Mr. Vale did something. I know it.\u201d"},
+],
+"CASE001-S03D": [
+    {"t": "n", "text": "Cole removes his glasses and polishes them, a stall you\u2019ve seen a hundred times. Doctors hate testifying \u2014 it offends their sense of order. The body is supposed to stay on the table."},
+    {"t": "d", "who": "Dr. Adrian Cole", "text": "He asked about sedatives. \u201cTo sleep,\u201d he said. But men like Daniel don\u2019t lose sleep over insomnia, Detective. They lose it over arithmetic \u2014 over what they owe, and to whom."},
+    {"t": "n", "text": "He puts the glasses back on. The stall is over."},
+],
+"CASE001-S04": [
+    {"t": "d", "who": "Officer Reyes", "text": "Whatever you\u2019re going to do, Detective \u2014 the DA\u2019s already calling. They want a name by morning."},
+    {"t": "n", "text": "A name by morning. You look at the board in your head once more: the gun, the ledger, the window, the call, the photograph, the doctor\u2019s warning. Every path costs someone. The only question is who pays, and for what."},
+],
+"ENDING-A": [
+    {"t": "n", "text": "The drive back is quiet. Rain on the windshield, the town dark. You tell yourself the forensics backed her \u2014 the throat marks, the account, the single shot. It was self-defense. The file says so."},
+    {"t": "n", "text": "But files don\u2019t mention wiped guns or ledger pages or mud on a window latch. You closed the case you could prove, and left the rest in the dark where it lives."},
+    {"t": "n", "text": "Some cases you solve. Some you survive. This one you\u2019ll carry \u2014 the one where the truth was in your hands and you set it down, because proving it would have cost more than the file could hold."},
+],
+"ENDING-B": [
+    {"t": "n", "text": "The station smells of coffee and wet wool. You write the report until your hand cramps: tampering, theft, obstruction. Every charge anchored to something you can hold \u2014 the cloth-wiped steel, the coded page, the mud, the call log."},
+    {"t": "n", "text": "It\u2019s past two when you finish. Outside, the rain has finally stopped. Blackwood sleeps, unaware that tonight, for once, the truth got written down before the money could bury it."},
+],
+"ENDING-C": [
+    {"t": "n", "text": "The press conference is a blur of flashes. The DA shakes your hand for the cameras. For eleven days, you\u2019re the detective who caught a killer."},
+    {"t": "n", "text": "On the twelfth day, forensics calls. You listen to the ballistics report with the phone going cold against your ear, and understand \u2014 too late \u2014 the difference between being in the house and pulling the trigger."},
+],
+}
+for sid, blocks in EXTRA.items():
+    content["scenes"][sid]["blocks"].extend(blocks)
+
+with open("/home/hatch/workspace/zeraphine/content.json", "w", encoding="utf-8") as f:
+    json.dump(content, f, ensure_ascii=False, indent=2)
+print("patched, re-wrote content.json")

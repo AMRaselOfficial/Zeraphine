@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0e13">
+<title>ZERAPHINE — Case #001: The House at Blackwood Lane</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- TITLE -->
+  <section id="screen-title" class="screen">
+    <div class="title-bg" role="img" aria-label="A Victorian manor at night in the rain"></div>
+    <div class="title-veil"></div>
+    <div class="title-content">
+      <div class="brand">ZERAPHINE</div>
+      <div class="case-line">CASE #001 &mdash; THE HOUSE AT BLACKWOOD LANE</div>
+      <p class="tagline">A choice-driven murder mystery.<br>Every clue matters. Every choice has a consequence.</p>
+      <div class="title-buttons">
+        <button id="btn-new" class="btn primary">New Investigation</button>
+        <button id="btn-continue" class="btn hidden">Continue</button>
+      </div>
+      <div id="title-progress" class="title-progress"></div>
+      <div id="title-error" class="title-error hidden"></div>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="screen-game" class="screen hidden">
+    <header id="topbar">
+      <button id="btn-menu" class="icon-btn" aria-label="Open investigation menu">&#9776;</button>
+      <div class="topbar-case">CASE #001</div>
+      <div id="story-time" class="topbar-time" aria-live="polite"></div>
+    </header>
+    <main id="story-panel">
+      <div id="scene-image-wrap" class="hidden">
+        <img id="scene-image" alt="Scene illustration">
+      </div>
+      <h1 id="scene-title"></h1>
+      <div id="blocks"></div>
+      <div id="choices" role="group" aria-label="Choices"></div>
+    </main>
+  </section>
+
+  <!-- ENDING -->
+  <section id="screen-ending" class="screen hidden">
+    <div class="ending-wrap">
+      <div class="ending-kicker">ENDING DISCOVERED</div>
+      <h1 id="ending-title"></h1>
+      <div id="ending-report" style="text-align:left"></div>
+      <div id="ending-image-wrap" class="hidden"><img id="ending-image" alt="Ending illustration"></div>
+      <p id="ending-summary" class="ending-summary"></p>
+      <p id="ending-epilogue" class="ending-epilogue"></p>
+      <div id="ending-stats" class="ending-stats"></div>
+      <div class="ending-buttons">
+        <button id="btn-ending-replay" class="btn primary">Replay from Checkpoint</button>
+        <button id="btn-ending-title" class="btn">Return to Title</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- DRAWER -->
+<div id="drawer-scrim" class="scrim hidden"></div>
+<nav id="drawer" class="hidden" aria-label="Investigation tools">
+  <div class="drawer-head">
+    <span>Investigation</span>
+    <button id="drawer-close" class="icon-btn" aria-label="Close menu">&times;</button>
+  </div>
+  <div id="drawer-items"></div>
+</nav>
+
+<!-- MODAL -->
+<div id="modal-scrim" class="scrim hidden"></div>
+<div id="modal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-head">
+    <h2 id="modal-title"></h2>
+    <button id="modal-close" class="icon-btn" aria-label="Close">&times;</button>
+  </div>
+  <div id="modal-body"></div>
+</div>
+
+<!-- PHONE POPUP -->
+<div id="phone-popup" class="hidden" role="alert">
+  <div class="pp-head"><span class="pp-dot"></span><span id="pp-contact">New message</span></div>
+  <p id="pp-snippet"></p>
+  <div class="pp-buttons">
+    <button id="pp-open" class="btn small primary">Open</button>
+    <button id="pp-dismiss" class="btn small">Dismiss</button>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div id="toasts" aria-live="polite"></div>
+
+<!-- CONFIRM -->
+<div id="confirm-scrim" class="scrim hidden"></div>
+<div id="confirm" class="hidden" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+  <h2 id="confirm-title"></h2>
+  <p id="confirm-body"></p>
+  <div class="confirm-buttons">
+    <button id="confirm-ok" class="btn small primary">Confirm</button>
+    <button id="confirm-cancel" class="btn small">Cancel</button>
+  </div>
+</div>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
